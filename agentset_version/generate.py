@@ -10,8 +10,10 @@ client = Agentset(
 
 from openai import OpenAI as OpenAIClient
 
-openai = OpenAIClient()
+if not os.getenv("OPENAI_API_KEY"):
+    raise ValueError("OPENAI_API_KEY environment variable is not set. Please check your environment or .env file.")
 
+openai = OpenAIClient()
 results = client.search.execute(
     query="what are the rules for functions?",
     top_k=5
